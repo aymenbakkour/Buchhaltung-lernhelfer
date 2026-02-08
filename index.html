@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buchhaltungs-Abkürzungen (DE-AR)</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -14,8 +14,8 @@
             --accent: #3498db;
             --accent-hover: #2980b9;
             --white: #ffffff;
-            --gray-light: #f8f9fa;
-            --gray-border: #e0e0e0;
+            --gray-light: #f4f6f7;
+            --gray-border: #dfe6e9;
             --success: #27ae60;
             --error: #c0392b;
             --shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -37,30 +37,28 @@
             min-height: 100vh;
         }
 
-        /* Arabischer Text Stil */
-        .ar-text {
+        /* تنسيق النصوص العربية */
+        .ar-text, .td-ar, .option-btn, header p {
             font-family: 'Cairo', sans-serif;
-            direction: rtl;
         }
 
         /* Header */
         header {
             background-color: var(--primary-dark);
             color: var(--white);
-            padding: 1rem;
+            padding: 1.5rem;
             text-align: center;
             box-shadow: var(--shadow);
         }
 
         header h1 {
-            font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            font-size: 1.8rem;
         }
 
         header p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            opacity: 0.9;
         }
 
         /* Navigation */
@@ -72,37 +70,43 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         nav button {
             background: none;
             border: none;
             color: var(--white);
-            padding: 0.8rem 1.5rem;
-            margin: 0 0.2rem;
+            padding: 10px 20px;
+            margin: 0 5px;
             cursor: pointer;
             font-size: 1rem;
-            font-weight: 500;
+            font-family: 'Cairo', sans-serif;
             border-radius: 4px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
         }
 
-        nav button:hover, nav button.active {
+        nav button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        nav button.active {
             background-color: var(--accent);
+            font-weight: bold;
         }
 
-        /* Main Container */
+        /* Main Content */
         main {
             flex: 1;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
         .view-section {
-            display: none; /* Standardmäßig versteckt */
-            animation: fadeIn 0.4s ease-in-out;
+            display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .view-section.active {
@@ -114,26 +118,28 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Wörterbuch (Dictionary) Styles --- */
-        .search-container {
+        /* --- Wörterbuch (Dictionary) --- */
+        .search-box {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        .search-container input {
+        .search-box input {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             border: 2px solid var(--gray-border);
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-family: 'Cairo', sans-serif; /* Supports mixed input */
             transition: border-color 0.3s;
         }
 
-        .search-container input:focus {
+        .search-box input:focus {
             outline: none;
             border-color: var(--accent);
         }
 
-        .table-container {
+        .table-wrapper {
             background: var(--white);
             border-radius: 8px;
             box-shadow: var(--shadow);
@@ -147,29 +153,29 @@
         }
 
         th, td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid var(--gray-border);
         }
 
         th {
-            background-color: var(--primary-light);
+            background-color: var(--primary-dark);
             color: var(--white);
             font-weight: 600;
         }
 
         tr:hover {
-            background-color: #f1f8ff;
+            background-color: #ecf0f1;
         }
 
         .td-ar {
             text-align: right;
             direction: rtl;
-            font-family: 'Cairo', sans-serif;
             color: var(--primary-dark);
+            font-size: 1.05rem;
         }
 
-        .abbr-badge {
+        .abbr-tag {
             background-color: var(--accent);
             color: white;
             padding: 4px 8px;
@@ -179,20 +185,20 @@
             display: inline-block;
         }
 
-        /* --- Flashcards Styles --- */
-        .flashcard-container {
+        /* --- Flashcards --- */
+        .flashcard-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 400px;
+            min-height: 450px;
         }
 
         .scene {
             width: 100%;
-            max-width: 400px;
-            height: 250px;
-            perspective: 600px;
+            max-width: 500px;
+            height: 300px;
+            perspective: 1000px;
             cursor: pointer;
         }
 
@@ -200,10 +206,10 @@
             width: 100%;
             height: 100%;
             position: relative;
-            transition: transform 0.6s;
+            transition: transform 0.8s;
             transform-style: preserve-3d;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
         .card.is-flipped {
@@ -219,25 +225,26 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 2rem;
             text-align: center;
         }
 
         .card__face--front {
             background-color: var(--white);
-            color: var(--primary-dark);
             border: 2px solid var(--accent);
         }
 
         .card__face--front h2 {
-            font-size: 3rem;
+            font-size: 4rem;
             color: var(--accent);
+            margin-bottom: 1rem;
         }
 
-        .card__face--front p {
-            color: #7f8c8d;
-            margin-top: 10px;
+        .card__face--front .hint {
+            color: #95a5a6;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
         }
 
         .card__face--back {
@@ -246,16 +253,17 @@
             transform: rotateY(180deg);
         }
 
-        .card__face--back .de-term {
-            font-size: 1.2rem;
+        .card__face--back .term-de {
+            font-size: 1.4rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 1rem;
         }
 
-        .card__face--back .ar-term {
-            font-size: 1.4rem;
+        .card__face--back .term-ar {
+            font-size: 1.6rem;
             font-family: 'Cairo', sans-serif;
             direction: rtl;
+            line-height: 1.4;
         }
 
         .controls {
@@ -265,13 +273,14 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: var(--primary-dark);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
             transition: background 0.2s;
         }
 
@@ -279,35 +288,35 @@
             background-color: var(--primary-light);
         }
 
-        /* --- Quiz Styles --- */
-        .quiz-container {
+        /* --- Quiz --- */
+        .quiz-wrapper {
             background: var(--white);
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: var(--shadow);
             text-align: center;
         }
 
-        .quiz-header {
+        .score-board {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--gray-border);
             padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-border);
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
         }
 
-        .question-box {
-            margin-bottom: 2rem;
-        }
-
-        .question-box h2 {
-            font-size: 2.5rem;
+        .question h2 {
+            font-size: 3rem;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin: 1rem 0 2rem 0;
         }
 
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 15px;
         }
 
         @media (min-width: 600px) {
@@ -322,7 +331,6 @@
             padding: 15px;
             border-radius: 8px;
             cursor: pointer;
-            font-family: 'Cairo', sans-serif;
             font-size: 1.1rem;
             transition: all 0.2s;
             direction: rtl;
@@ -330,63 +338,65 @@
 
         .option-btn:hover:not([disabled]) {
             border-color: var(--accent);
-            background-color: #eaf6ff;
+            background-color: #eaf2f8;
         }
 
         .option-btn.correct {
-            background-color: var(--success) !important;
-            color: white !important;
-            border-color: var(--success) !important;
+            background-color: var(--success);
+            color: white;
+            border-color: var(--success);
         }
 
         .option-btn.wrong {
-            background-color: var(--error) !important;
-            color: white !important;
-            border-color: var(--error) !important;
+            background-color: var(--error);
+            color: white;
+            border-color: var(--error);
         }
 
-        .quiz-feedback {
+        .feedback-msg {
             margin-top: 1.5rem;
+            min-height: 25px;
             font-weight: bold;
-            min-height: 2rem;
+            font-family: 'Cairo', sans-serif;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
             background-color: var(--primary-dark);
-            color: #bdc3c7;
-            font-size: 0.8rem;
+            color: #95a5a6;
             margin-top: auto;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Buchhaltung Abkürzungen</h1>
-    <p>Deutsch - Arabisch / ألماني - عربي</p>
+    <h1>Buchhaltungs-Abkürzungen</h1>
+    <p>تعلم مصطلحات المحاسبة الألمانية (Deutsch - Arabisch)</p>
 </header>
 
 <nav>
-    <button class="nav-btn active" onclick="switchTab('dictionary')">Wörterbuch / قاموس</button>
-    <button class="nav-btn" onclick="switchTab('flashcards')">Karteikarten / بطاقات</button>
-    <button class="nav-btn" onclick="switchTab('quiz')">Quiz / اختبار</button>
+    <button class="nav-btn active" onclick="switchTab('dictionary')">القاموس / Wörterbuch</button>
+    <button class="nav-btn" onclick="switchTab('flashcards')">البطاقات / Karteikarten</button>
+    <button class="nav-btn" onclick="switchTab('quiz')">الاختبار / Quiz</button>
 </nav>
 
 <main>
     <section id="dictionary" class="view-section active">
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Suche (z.B. AfA, Umsatzsteuer, ضريبة)...">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="بحث (مثال: AfA, Umsatzsteuer, ضريبة)...">
         </div>
-        <div class="table-container">
+        <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>Abk.</th>
-                        <th>Deutsch</th>
-                        <th style="text-align: right;">Arabisch</th>
+                        <th width="15%">Abk.</th>
+                        <th width="40%">Deutsch</th>
+                        <th width="45%" style="text-align: right;">Arabisch</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -396,146 +406,218 @@
     </section>
 
     <section id="flashcards" class="view-section">
-        <div class="flashcard-container">
+        <div class="flashcard-area">
             <div class="scene">
                 <div class="card" id="flashcard">
                     <div class="card__face card__face--front">
                         <h2 id="fc-abbr">AfA</h2>
-                        <p>Klicken zum Umdrehen / انقر للقلب</p>
+                        <span class="hint">انقر لقلب البطاقة / Klicken zum Drehen</span>
                     </div>
                     <div class="card__face card__face--back">
-                        <div class="de-term" id="fc-de">Absetzung für Abnutzung</div>
-                        <div class="ar-term" id="fc-ar">الإهلاك (خصم للتآكل)</div>
+                        <div class="term-de" id="fc-de">Absetzung für Abnutzung</div>
+                        <div class="term-ar" id="fc-ar">الإهلاك</div>
                     </div>
                 </div>
             </div>
+            
             <div class="controls">
-                <button class="btn" onclick="prevCard()">&#8592; Zurück</button>
-                <button class="btn" onclick="nextCard()">Weiter &#8594;</button>
+                <button class="btn" onclick="prevCard()">السابق &#8594;</button>
+                <button class="btn" onclick="nextCard()">&#8592; التالي</button>
             </div>
-            <p style="margin-top: 1rem; color: #7f8c8d;" id="fc-counter">1 / 50</p>
+            <p style="margin-top: 15px; color: #7f8c8d;" id="fc-counter">1 / 50</p>
         </div>
     </section>
 
     <section id="quiz" class="view-section">
-        <div class="quiz-container">
-            <div class="quiz-header">
-                <span>Punkte: <strong id="score">0</strong></span>
+        <div class="quiz-wrapper">
+            <div class="score-board">
+                <span>النقاط: <span id="score">0</span></span>
+                <span>سؤال رقم: <span id="q-num">1</span></span>
             </div>
-            <div class="question-box">
-                <p>Was bedeutet diese Abkürzung?</p>
+            
+            <div class="question">
+                <p style="font-family: 'Cairo', sans-serif;">ما معنى هذا الاختصار؟</p>
                 <h2 id="quiz-abbr">?</h2>
             </div>
+            
             <div class="options-grid" id="quiz-options">
                 </div>
-            <div class="quiz-feedback" id="quiz-feedback"></div>
-            <button class="btn" id="next-quiz-btn" style="display: none; margin: 10px auto;" onclick="generateQuizQuestion()">Nächste Frage</button>
+            
+            <div class="feedback-msg" id="quiz-feedback"></div>
+            
+            <button class="btn" id="next-quiz-btn" style="display: none; margin: 15px auto;" onclick="nextQuestion()">السؤال التالي</button>
         </div>
     </section>
 </main>
 
 <footer>
-    &copy; 2026 Accounting Learning Tool. Basierend auf dem bereitgestellten Abkürzungsverzeichnis.
+    تم تطوير هذا التطبيق التعليمي بناءً على المصطلحات المقدمة. <br>
+    &copy; 2026 Accounting Learning Tool
 </footer>
 
 <script>
     /**
-     * Datenbasis extrahiert aus dem bereitgestellten PDF.
-     * [span_3](start_span)[span_4](start_span)[span_5](start_span)Quellen[span_3](end_span)[span_4](end_span)[span_5](end_span)
+     * البيانات الكاملة حسب القائمة المقدمة
      */
     const data = [
+        { abbr: "A", de: "Abschnitt", ar: "مقطع" },
         { abbr: "AB", de: "Anfangsbestand", ar: "رصيد أول المدة" },
-        { abbr: "AfA", de: "Absetzung für Abnutzung", ar: "الإهلاك (نقص القيمة نتيجة الاستخدام)" },
+        { abbr: "AfA", de: "Absetzung für Abnutzung", ar: "الإهلاك" },
         { abbr: "AG", de: "Aktiengesellschaft", ar: "شركة مساهمة" },
         { abbr: "AktG", de: "Aktiengesetz", ar: "قانون الشركات المساهمة" },
-        { abbr: "AK", de: "Anschaffungskosten", ar: "تكاليف الشراء / تكلفة الاقتناء" },
-        { abbr: "ANK", de: "Anschaffungsnebenkosten", ar: "تكاليف الشراء الإضافية (النثرية)" },
-        { abbr: "AO", de: "Abgabenordnung", ar: "القانون الضريبي العام" },
-        { abbr: "AR", de: "Ausgangsrechnung", ar: "فاتورة صادرة (مبيعات)" },
-        { abbr: "AV", de: "Anlagevermögen", ar: "الأصول الثابتة" },
-        { abbr: "BGA", de: "Betriebs- und Geschäftsausstattung", ar: "أثاث وتجهيزات مكتبية وتجارية" },
-        { abbr: "BilMoG", de: "Bilanzrechtsmodernisierungsgesetz", ar: "قانون تحديث قانون المحاسبة" },
+        { abbr: "AK", de: "Anschaffungskosten", ar: "تكاليف الحيازة/الشراء" },
+        { abbr: "alul", de: "aus Lieferungen und Leistungen", ar: "من التوريدات والخدمات" },
+        { abbr: "AN", de: "Arbeitnehmer", ar: "موظف" },
+        { abbr: "ANK", de: "Anschaffungsnebenkosten", ar: "تكاليف الشراء الجانبية" },
+        { abbr: "AO", de: "Abgabenordnung", ar: "قانون الضرائب الألماني" },
+        { abbr: "AR", de: "Ausgangsrechnung", ar: "فاتورة صادرة" },
+        { abbr: "AV", de: "Anlagevermögen/Arbeitslosenversicherung", ar: "الأصول الثابتة أو تأمين البطالة" },
+        { abbr: "B", de: "Berichtigungsschlüssel", ar: "مفتاح التصحيح" },
+        { abbr: "BA", de: "Bundesanzeiger/Betriebsausgaben", ar: "الجريدة الرسمية الاتحادية أو مصاريف تشغيلية" },
+        { abbr: "BdF", de: "Bundesminister der Finanzen", ar: "وزير المالية الاتحادي" },
+        { abbr: "BFH", de: "Bundesfinanzhof", ar: "محكمة المالية الاتحادية" },
+        { abbr: "BGA", de: "Betriebs- und Geschäftsausstattung", ar: "التجهيزات التشغيلية والمكتبية" },
+        { abbr: "BGB", de: "Bürgerliches Gesetzbuch", ar: "القانون المدني" },
+        { abbr: "BilMoG", de: "Bilanzrechtsmodernisierungsgesetz", ar: "قانون تحديث قانون الميزانية العمومية" },
         { abbr: "BMF", de: "Bundesministerium der Finanzen", ar: "وزارة المالية الاتحادية" },
-        { abbr: "BS", de: "Bestandskonto", ar: "حساب الرصيد" },
-        { abbr: "BV", de: "Betriebsvermögen", ar: "أصول الشركة / ممتلكات المنشأة" },
-        { abbr: "BWA", de: "Betriebswirtschaftliche Auswertung", ar: "التحليل الاقتصادي للأعمال" },
-        { abbr: "DATEV", de: "Datenverarbeitungsorganisation", ar: "نظام داتف (برنامج محاسبة شهير)" },
-        { abbr: "EK", de: "Eigenkapital", ar: "رأس المال الخاص / حقوق الملكية" },
-        { abbr: "ER", de: "Eingangsrechnung", ar: "فاتورة واردة (مشتريات)" },
+        { abbr: "BpO", de: "Betriebsprüfungsordnung", ar: "نظام التفتيش الضريبي" },
+        { abbr: "BStBl", de: "Bundessteuerblatt", ar: "المجلة الضريبية الاتحادية" },
+        { abbr: "BuG", de: "Betriebs- und Geschäftsausstattung", ar: "التجهيزات التشغيلية والمكتبية" },
+        { abbr: "BV", de: "Betriebsvermögen", ar: "رأس مال المنشأة" },
+        { abbr: "BWA", de: "Betriebswirtschaftliche Auswertung", ar: "التقييم الاقتصادي للأعمال" },
+        { abbr: "DATEV", de: "Datenverarbeitungsorganisation des steuerberatenden Berufes", ar: "منظمة معالجة البيانات لمهنة الاستشارات الضريبية" },
+        { abbr: "DB", de: "Der Betrieb", ar: "المجلة المهنية 'التشغيل'" },
+        { abbr: "Eh.", de: "Einzelhandel", ar: "تجارة التجزئة" },
+        { abbr: "e.K.", de: "eingetragener Kaufmann", ar: "تاجر مسجل" },
+        { abbr: "EK", de: "Eigenkapital", ar: "حقوق الملكية" },
+        { abbr: "ER", de: "Eingangsrechnung", ar: "فاتورة واردة" },
         { abbr: "ESt", de: "Einkommensteuer", ar: "ضريبة الدخل" },
+        { abbr: "EStDV", de: "Einkommensteuer-Durchführungsverordnung", ar: "لائحة تنفيذ ضريبة الدخل" },
+        { abbr: "ESTH", de: "Amtliches Einkommensteuer-Handbuch", ar: "دليل ضريبة الدخل الرسمي" },
         { abbr: "EStG", de: "Einkommensteuergesetz", ar: "قانون ضريبة الدخل" },
-        { abbr: "FK", de: "Fremdkapital", ar: "رأس المال الأجنبي / الخصوم / الالتزامات" },
-        { abbr: "GewSt", de: "Gewerbesteuer", ar: "ضريبة التجارة / ضريبة الأعمال" },
+        { abbr: "ESTR", de: "Einkommensteuer-Richtlinien", ar: "المبادئ التوجيهية لضريبة الدخل" },
+        { abbr: "EU", de: "Europäische Union", ar: "الاتحاد الأوروبي" },
+        { abbr: "EUSt", de: "Einfuhrumsatzsteuer", ar: "ضريبة استيراد القيمة المضافة" },
+        { abbr: "EV", de: "Eigenverbrauch", ar: "الاستهلاك الشخصي" },
+        { abbr: "FA", de: "Finanzamt", ar: "مكتب الضرائب" },
+        { abbr: "FK", de: "Fremdkapital", ar: "رأس المال المقترض/الديون" },
+        { abbr: "GewSt", de: "Gewerbesteuer", ar: "ضريبة التجارة" },
+        { abbr: "GKR", de: "Gemeinschaftskontenrahmen der Industrie", ar: "مخطط الحسابات المشترك للصناعة" },
         { abbr: "GmbH", de: "Gesellschaft mit beschränkter Haftung", ar: "شركة ذات مسؤولية محدودة" },
-        { abbr: "GoB", de: "Grundsätze ordnungsgemäßer Buchführung", ar: "مبادئ المحاسبة النظامية" },
-        { abbr: "GuV", de: "Gewinn- und Verlustrechnung", ar: "حساب الأرباح والخسائر" },
-        { abbr: "GWG", de: "Geringwertiges Wirtschaftsgut", ar: "أصل اقتصادي قليل القيمة" },
-        { abbr: "H", de: "Haben", ar: "دائن (له)" },
-        { abbr: "HB", de: "Handelsbilanz", ar: "الميزانية التجارية" },
-        { abbr: "HGB", de: "Handelsgesetzbuch", ar: "القانون التجاري الألماني" },
-        { abbr: "HK", de: "Herstellungskosten", ar: "تكاليف التصنيع / الإنتاج" },
+        { abbr: "GoB", de: "Grundsätze ordnungsgemäßer Buchführung", ar: "مبادئ المحاسبة السليمة" },
+        { abbr: "GOBS", de: "Grundsätze ordnungsgemäßer DV-gestützter Buchführungssysteme", ar: "مبادئ أنظمة المحاسبة المحوسبة" },
+        { abbr: "GoS", de: "Grundsätze ordnungsgemäßer Speicherbuchführung", ar: "مبادئ محاسبة التخزين" },
+        { abbr: "GuVK", de: "Gewinn- und Verlustkonto", ar: "حساب الأرباح والخسائر" },
+        { abbr: "GuVR", de: "Gewinn- und Verlustrechnung", ar: "قائمة الأرباح والخسائر" },
+        { abbr: "GWG", de: "geringwertiges Wirtschaftsgut", ar: "أصول منخفضة القيمة" },
+        { abbr: "H", de: "Hinweise/Haben", ar: "ملاحظات أو 'له/دائن'" },
+        { abbr: "HAÜ", de: "Hauptabschlussübersicht", ar: "ملخص الإقفال الرئيسي" },
+        { abbr: "HB", de: "Handelsbilanz", ar: "الميزانية العمومية التجارية" },
+        { abbr: "HGB", de: "Handelsgesetzbuch", ar: "القانون التجاري" },
+        { abbr: "HK", de: "Herstellungskosten", ar: "تكاليف التصنيع" },
+        { abbr: "HR", de: "Handelsregister", ar: "السجل التجاري" },
+        { abbr: "IDW", de: "Hauptausschuss des Instituts für Wirtschaftsprüfer", ar: "اللجنة الرئيسية لمعهد مدققي الحسابات" },
+        { abbr: "IKR", de: "Industriekontenrahmen", ar: "مخطط الحسابات الصناعي" },
+        { abbr: "INSO", de: "Insolvenzgeldumlage", ar: "رسوم إعانات الإعسار" },
+        { abbr: "K", de: "Kontokorrent", ar: "الحساب الجاري" },
+        { abbr: "KG", de: "Kommanditgesellschaft", ar: "شركة توصية بسيطة" },
+        { abbr: "KiSt", de: "Kirchensteuer", ar: "ضريبة الكنيسة" },
         { abbr: "KSt", de: "Körperschaftsteuer", ar: "ضريبة الشركات" },
-        { abbr: "K", de: "Kontokorrent", ar: "حساب جاري" },
-        { abbr: "KG", de: "Kommanditgesellschaft", ar: "شركة توصية" },
-        { abbr: "LSt", de: "Lohnsteuer", ar: "ضريبة الرواتب / الأجور" },
-        { abbr: "OHG", de: "Offene Handelsgesellschaft", ar: "شركة تضامن" },
-        { abbr: "Rz.", de: "Randziffer", ar: "رقم الفقرة الهامشية" },
-        { abbr: "S", de: "Soll", ar: "مدين (منه)" },
-        { abbr: "SBK", de: "Schlussbilanzkonto", ar: "حساب الميزانية الختامية" },
-        { abbr: "SKR", de: "Spezialkontenrahmen", ar: "دليل الحسابات الخاص (إطار محاسبي)" },
-        { abbr: "SV", de: "Sozialversicherung", ar: "التأمين الاجتماعي" },
-        { abbr: "USt", de: "Umsatzsteuer", ar: "ضريبة المبيعات / القيمة المضافة" },
-        { abbr: "USt-IdNr", de: "Umsatzsteuer-Identifikationsnummer", ar: "رقم التعريف الضريبي" },
+        { abbr: "KV", de: "Krankenversicherung", ar: "التأمين الصحي" },
+        { abbr: "LFZG", de: "Lohnfortzahlungsgesetz", ar: "قانون استمرار دفع الأجور" },
+        { abbr: "LSt", de: "Lohnsteuer", ar: "ضريبة الأجور" },
+        { abbr: "LStDV", de: "Lohnsteuer-Durchführungsverordnung", ar: "لائحة تنفيذ ضريبة الأجور" },
+        { abbr: "MwStSystR", de: "Mehrwertsteuer-Systemrichtlinie", ar: "التوجيه الموحد لنظام ضريبة القيمة المضافة" },
+        { abbr: "m.Z.", de: "mit Zinsschein", ar: "مع قسيمة فوائد" },
+        { abbr: "ND", de: "Nutzungsdauer", ar: "العمر الإنتاجي" },
+        { abbr: "OFD", de: "Oberfinanzdirektion", ar: "مديرية المالية العليا" },
+        { abbr: "OHG", de: "offene Handelsgesellschaft", ar: "شركة تضامن مفتوحة" },
+        { abbr: "o.Z.", de: "ohne Zinsschein", ar: "بدون قسيمة فوائد" },
+        { abbr: "PflegeVG", de: "Pflegeversicherungsgesetz", ar: "قانون تأمين الرعاية" },
+        { abbr: "PV", de: "Pflegeversicherung", ar: "تأمين الرعاية" },
+        { abbr: "PublG", de: "Publizitätsgesetz", ar: "قانون الإفصاح" },
+        { abbr: "R", de: "Richtlinie", ar: "مبدأ توجيهي" },
+        { abbr: "rkr.", de: "rechtskräftig", ar: "ملزم قانوناً" },
+        { abbr: "RV", de: "Rentenversicherung", ar: "تأمين التقاعد" },
+        { abbr: "Rz.", de: "Randziffer/Randzahl", ar: "رقم الهامش" },
+        { abbr: "S", de: "Soll", ar: "منه/مدين" },
+        { abbr: "SachbezV", de: "Sachbezugsverordnung", ar: "لائحة المزايا العينية" },
+        { abbr: "SB", de: "Schlussbestand", ar: "رصيد الإقفال" },
+        { abbr: "SBK", de: "Schlussbilanzkonto", ar: "حساب الميزانية العمومية الختامية" },
+        { abbr: "SKR", de: "Spezialkontenrahmen", ar: "مخطط حسابات متخصص" },
+        { abbr: "SL", de: "sonstige Leistung", ar: "خدمة أخرى" },
+        { abbr: "SoIZ", de: "Solidaritätszuschlag", ar: "ضريبة التضامن الإضافية" },
+        { abbr: "SoIZG", de: "Solidaritätszuschlagsgesetz", ar: "قانون ضريبة التضامن الإضافية" },
+        { abbr: "StB", de: "Steuerbilanz", ar: "الميزانية العمومية الضريبية" },
+        { abbr: "StBereinG", de: "Steuerbereinigungsgesetz", ar: "قانون التطهير الضريبي" },
+        { abbr: "StEntlG", de: "Steuerentlastungsgesetz", ar: "قانون الإعفاء الضريبي" },
+        { abbr: "StEuglG", de: "Steuer-Euroglättungsgesetz", ar: "قانون تعديل اليورو الضريبي" },
+        { abbr: "SV", de: "Saldovortrag", ar: "ترحيل الرصيد" },
+        { abbr: "SvEV", de: "Sozialversicherungsentgeltverordnung", ar: "لائحة أجور التأمينات الاجتماعية" },
+        { abbr: "Tz.", de: "Textziffer/Textzahl", ar: "رقم النص" },
+        { abbr: "U1", de: "Umlage 1", ar: "الرسوم 1" },
+        { abbr: "U2", de: "Umlage 2", ar: "الرسوم 2" },
+        { abbr: "USt", de: "Umsatzsteuer", ar: "ضريبة المبيعات/القيمة المضافة" },
+        { abbr: "USTAE", de: "Umsatzsteuer-Anwendungserlass", ar: "مرسوم تطبيق ضريبة المبيعات" },
+        { abbr: "USEDV", de: "Umsatzsteuer-Durchführungsverordnung", ar: "لائحة تنفيذ ضريبة المبيعات" },
+        { abbr: "USt-IdNr.", de: "Umsatzsteuer-Identifikationsnummer", ar: "رقم تعريف ضريبة المبيعات" },
         { abbr: "UV", de: "Umlaufvermögen", ar: "الأصول المتداولة" },
-        { abbr: "VoSt", de: "Vorsteuer", ar: "ضريبة المدخلات (المخصومة)" },
-        { abbr: "VZ", de: "Veranlagungszeitraum", ar: "الفترة الضريبية / فترة التقييم" },
-        { abbr: "WP", de: "Wirtschaftsprüfer", ar: "مدقق حسابات / محاسب قانوني" },
-        { abbr: "ZM", de: "Zusammenfassende Meldung", ar: "التقرير الملخص (للضريبة داخل الاتحاد الأوروبي)" }
+        { abbr: "vBP", de: "vereidigter Buchprüfer", ar: "مدقق حسابات محلف" },
+        { abbr: "VermBG", de: "Vermögensbildungsgesetz", ar: "قانون تكوين الأصول" },
+        { abbr: "VoSt", de: "Vorsteuer", ar: "ضريبة المدخلات" },
+        { abbr: "VSt", de: "Vermögensteuer", ar: "ضريبة الثروة" },
+        { abbr: "vwL", de: "vermögenswirksame Leistungen", ar: "المزايا المكونة للأصول" },
+        { abbr: "VZ", de: "Veranlagungszeitraum", ar: "فترة التقييم الضريبي" },
+        { abbr: "WG", de: "Wechselgesetz", ar: "قانون الكمبيالات" },
+        { abbr: "WoBauFG", de: "Wohnungsbauförderungsgesetz", ar: "قانون تشجيع بناء المساكن" },
+        { abbr: "WOPG", de: "Wohnungsbau-Prämiengesetz", ar: "قانون علاوة بناء المساكن" },
+        { abbr: "WP", de: "Wirtschaftsprüfer", ar: "مدقق حسابات" },
+        { abbr: "WStG", de: "Wechselsteuergesetz", ar: "قانون ضريبة الكمبيالات" },
+        { abbr: "ZM", de: "Zusammenfassende Meldung", ar: "تقرير ملخص" }
     ];
 
-    // --- State Management ---
+    // --- State Variables ---
     let currentTab = 'dictionary';
     let currentCardIndex = 0;
     let quizScore = 0;
+    let quizQuestionCount = 1;
     let currentQuizItem = null;
 
-    // --- Initialization ---
+    // --- Init ---
     document.addEventListener('DOMContentLoaded', () => {
-        renderDictionary(data);
+        renderTable(data);
         renderFlashcard();
         generateQuizQuestion();
     });
 
     // --- Navigation Logic ---
     function switchTab(tabName) {
-        // Hide all sections
+        // Toggle Sections
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-
-        // Show selected section
         document.getElementById(tabName).classList.add('active');
         
-        // Find button that calls this function (rough approximation for simplicity)
-        const buttons = document.querySelectorAll('.nav-btn');
-        if(tabName === 'dictionary') buttons[0].classList.add('active');
-        if(tabName === 'flashcards') buttons[1].classList.add('active');
-        if(tabName === 'quiz') buttons[2].classList.add('active');
+        // Toggle Buttons
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => btn.classList.remove('active'));
+        if(tabName === 'dictionary') btns[0].classList.add('active');
+        if(tabName === 'flashcards') btns[1].classList.add('active');
+        if(tabName === 'quiz') btns[2].classList.add('active');
     }
 
     // --- Dictionary Logic ---
     const tableBody = document.getElementById('tableBody');
     const searchInput = document.getElementById('searchInput');
 
-    function renderDictionary(items) {
+    function renderTable(items) {
         tableBody.innerHTML = '';
         if (items.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Keine Ergebnisse gefunden</td></tr>';
+            tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px;">لا توجد نتائج / Keine Ergebnisse</td></tr>`;
             return;
         }
         items.forEach(item => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td><span class="abbr-badge">${item.abbr}</span></td>
+                <td><span class="abbr-tag">${item.abbr}</span></td>
                 <td>${item.de}</td>
                 <td class="td-ar">${item.ar}</td>
             `;
@@ -544,33 +626,31 @@
     }
 
     searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
+        const val = e.target.value.toLowerCase();
         const filtered = data.filter(item => 
-            item.abbr.toLowerCase().includes(term) || 
-            item.de.toLowerCase().includes(term) || 
-            item.ar.includes(term)
+            item.abbr.toLowerCase().includes(val) || 
+            item.de.toLowerCase().includes(val) || 
+            item.ar.includes(val)
         );
-        renderDictionary(filtered);
+        renderTable(filtered);
     });
 
     // --- Flashcards Logic ---
-    const flashcardElement = document.getElementById('flashcard');
+    const flashcard = document.getElementById('flashcard');
     const fcAbbr = document.getElementById('fc-abbr');
     const fcDe = document.getElementById('fc-de');
     const fcAr = document.getElementById('fc-ar');
     const fcCounter = document.getElementById('fc-counter');
 
-    flashcardElement.addEventListener('click', () => {
-        flashcardElement.classList.toggle('is-flipped');
+    flashcard.addEventListener('click', () => {
+        flashcard.classList.toggle('is-flipped');
     });
 
     function renderFlashcard() {
-        const item = data[currentCardIndex];
-        // Reset flip state
-        flashcardElement.classList.remove('is-flipped');
+        flashcard.classList.remove('is-flipped');
         
-        // Small timeout to allow flip reset before content change (optional, better UX)
         setTimeout(() => {
+            const item = data[currentCardIndex];
             fcAbbr.textContent = item.abbr;
             fcDe.textContent = item.de;
             fcAr.textContent = item.ar;
@@ -592,32 +672,34 @@
     const quizAbbr = document.getElementById('quiz-abbr');
     const quizOptions = document.getElementById('quiz-options');
     const quizFeedback = document.getElementById('quiz-feedback');
-    const scoreDisplay = document.getElementById('score');
-    const nextQuizBtn = document.getElementById('next-quiz-btn');
+    const scoreEl = document.getElementById('score');
+    const qNumEl = document.getElementById('q-num');
+    const nextBtn = document.getElementById('next-quiz-btn');
 
     window.generateQuizQuestion = function() {
-        // Reset UI
         quizFeedback.textContent = '';
-        nextQuizBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
         
-        // Pick random question
-        const randomIndex = Math.floor(Math.random() * data.length);
-        currentQuizItem = data[randomIndex];
+        // Random Question
+        const randIndex = Math.floor(Math.random() * data.length);
+        currentQuizItem = data[randIndex];
+        
         quizAbbr.textContent = currentQuizItem.abbr;
-
-        // Generate options (1 correct + 3 wrong)
+        
+        // Generate Distractors
         let options = [currentQuizItem];
         while (options.length < 4) {
-            const randomDistractor = data[Math.floor(Math.random() * data.length)];
-            if (!options.includes(randomDistractor)) {
-                options.push(randomDistractor);
+            const distractor = data[Math.floor(Math.random() * data.length)];
+            // Ensure uniqueness
+            if (!options.some(o => o.abbr === distractor.abbr)) {
+                options.push(distractor);
             }
         }
-
-        // Shuffle options
+        
+        // Shuffle
         options.sort(() => Math.random() - 0.5);
-
-        // Render buttons
+        
+        // Render
         quizOptions.innerHTML = '';
         options.forEach(opt => {
             const btn = document.createElement('button');
@@ -628,32 +710,36 @@
         });
     }
 
-    function checkAnswer(selectedOption, btnElement) {
-        // Disable all buttons to prevent multiple guesses
+    function checkAnswer(selected, btn) {
+        // Disable buttons
         const allBtns = document.querySelectorAll('.option-btn');
-        allBtns.forEach(btn => btn.disabled = true);
-
-        if (selectedOption.abbr === currentQuizItem.abbr) {
+        allBtns.forEach(b => b.disabled = true);
+        
+        if (selected.abbr === currentQuizItem.abbr) {
             // Correct
-            btnElement.classList.add('correct');
-            quizFeedback.textContent = 'Richtig! / إجابة صحيحة';
+            btn.classList.add('correct');
+            quizFeedback.textContent = 'إجابة صحيحة! ممتاز';
             quizFeedback.style.color = 'var(--success)';
             quizScore++;
-            scoreDisplay.textContent = quizScore;
+            scoreEl.textContent = quizScore;
         } else {
             // Wrong
-            btnElement.classList.add('wrong');
-            quizFeedback.textContent = `Falsch. Richtig war: ${currentQuizItem.ar}`;
+            btn.classList.add('wrong');
+            quizFeedback.textContent = `خطأ. الإجابة الصحيحة هي: ${currentQuizItem.ar}`;
             quizFeedback.style.color = 'var(--error)';
             
-            // Highlight the correct one
-            allBtns.forEach(btn => {
-                if (btn.textContent === currentQuizItem.ar) {
-                    btn.classList.add('correct');
-                }
+            // Highlight Correct
+            allBtns.forEach(b => {
+                if (b.textContent === currentQuizItem.ar) b.classList.add('correct');
             });
         }
-        nextQuizBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+    }
+
+    window.nextQuestion = function() {
+        quizQuestionCount++;
+        qNumEl.textContent = quizQuestionCount;
+        generateQuizQuestion();
     }
 
 </script>
