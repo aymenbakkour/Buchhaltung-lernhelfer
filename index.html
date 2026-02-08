@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buchhaltungs-Abkürzungen (DE-AR)</title>
+    <title>Buchhaltung Lernen & Begriffe</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -14,62 +14,54 @@
             --accent: #3498db;
             --accent-hover: #2980b9;
             --white: #ffffff;
-            --gray-light: #f4f6f7;
+            --gray-bg: #f5f7fa;
             --gray-border: #dfe6e9;
             --success: #27ae60;
             --error: #c0392b;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --text-color: #2c3e50;
+            --shadow: 0 4px 6px rgba(0,0,0,0.08);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: var(--gray-light);
-            color: var(--primary-dark);
+            background-color: var(--gray-bg);
+            color: var(--text-color);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* تنسيق النصوص العربية */
-        .ar-text, .td-ar, .option-btn, header p {
-            font-family: 'Cairo', sans-serif;
-        }
-
+        /* Common Styles */
+        .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; }
+        .de-text { font-family: 'Roboto', sans-serif; text-align: left; }
+        
         /* Header */
         header {
             background-color: var(--primary-dark);
             color: var(--white);
-            padding: 1.5rem;
-            text-align: center;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: var(--shadow);
+            flex-wrap: wrap;
         }
 
-        header h1 {
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-        }
-
-        header p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
+        header h1 { font-size: 1.5rem; }
+        header span { font-family: 'Cairo', sans-serif; font-size: 0.9rem; opacity: 0.9; }
 
         /* Navigation */
         nav {
             background-color: var(--primary-light);
             display: flex;
             justify-content: center;
-            padding: 0.5rem;
+            padding: 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
@@ -77,318 +69,306 @@
             background: none;
             border: none;
             color: var(--white);
-            padding: 10px 20px;
-            margin: 0 5px;
+            padding: 15px 20px;
             cursor: pointer;
             font-size: 1rem;
             font-family: 'Cairo', sans-serif;
-            border-radius: 4px;
             transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
         }
 
-        nav button:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
+        nav button:hover { background-color: rgba(255,255,255,0.1); }
+        nav button.active { background-color: rgba(0,0,0,0.2); border-bottom-color: var(--accent); }
 
-        nav button.active {
-            background-color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Main Content */
+        /* Main Layout */
         main {
             flex: 1;
-            max-width: 900px;
+            max-width: 1200px;
             width: 100%;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .view-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .view-section { display: none; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- SECTION: LERNEN (Split View) --- */
+        .learning-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .view-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Wörterbuch (Dictionary) --- */
-        .search-box {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid var(--gray-border);
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-family: 'Cairo', sans-serif; /* Supports mixed input */
-            transition: border-color 0.3s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .table-wrapper {
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
             background: var(--white);
             border-radius: 8px;
             box-shadow: var(--shadow);
-            overflow: hidden;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
             padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--gray-border);
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
         }
 
-        th {
-            background-color: var(--primary-dark);
-            color: var(--white);
-            font-weight: 600;
-        }
-
-        tr:hover {
-            background-color: #ecf0f1;
-        }
-
-        .td-ar {
-            text-align: right;
-            direction: rtl;
-            color: var(--primary-dark);
-            font-size: 1.05rem;
-        }
-
-        .abbr-tag {
-            background-color: var(--accent);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: inline-block;
-        }
-
-        /* --- Flashcards --- */
-        .flashcard-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 450px;
-        }
-
-        .scene {
-            width: 100%;
-            max-width: 500px;
-            height: 300px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            border-radius: 16px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card__face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .card__face--front {
-            background-color: var(--white);
-            border: 2px solid var(--accent);
-        }
-
-        .card__face--front h2 {
-            font-size: 4rem;
+        .sidebar h3 {
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-border);
+            margin-bottom: 15px;
+            font-family: 'Cairo', sans-serif;
             color: var(--accent);
-            margin-bottom: 1rem;
         }
 
-        .card__face--front .hint {
-            color: #95a5a6;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.9rem;
-        }
-
-        .card__face--back {
-            background-color: var(--accent);
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        .card__face--back .term-de {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .card__face--back .term-ar {
-            font-size: 1.6rem;
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-            line-height: 1.4;
-        }
-
-        .controls {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            background-color: var(--primary-dark);
-            color: white;
-            border: none;
+        .chapter-list { list-style: none; }
+        .chapter-list li {
+            padding: 12px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 1rem;
-            font-family: 'Cairo', sans-serif;
             transition: background 0.2s;
+            font-size: 0.95rem;
+            border-left: 3px solid transparent;
+            margin-bottom: 5px;
         }
-
-        .btn:hover {
-            background-color: var(--primary-light);
-        }
-
-        /* --- Quiz --- */
-        .quiz-wrapper {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-
-        .score-board {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--gray-border);
-            font-family: 'Cairo', sans-serif;
+        .chapter-list li:hover { background-color: var(--gray-bg); }
+        .chapter-list li.active {
+            background-color: #eaf2f8;
+            border-left-color: var(--accent);
+            color: var(--primary-dark);
             font-weight: bold;
         }
 
-        .question h2 {
-            font-size: 3rem;
-            color: var(--accent);
-            margin: 1rem 0 2rem 0;
+        /* Content Area */
+        .lesson-content {
+            flex: 1;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
         }
 
-        .options-grid {
+        .lesson-header {
+            border-bottom: 1px solid var(--gray-border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .lesson-header h2 { color: var(--primary-dark); font-size: 1.8rem; margin-bottom: 5px; }
+        .lesson-header .subtitle { color: #7f8c8d; font-family: 'Cairo', sans-serif; }
+
+        /* Typography within Lesson */
+        .content-block { margin-bottom: 2.5rem; }
+        .content-block h3 { color: var(--accent); margin-bottom: 1rem; border-left: 4px solid var(--accent); padding-left: 10px; }
+        
+        .definition-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #f1c40f;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .dual-lang {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
+            margin-bottom: 15px;
+        }
+        @media(min-width: 768px) {
+            .dual-lang { grid-template-columns: 1fr 1fr; }
+        }
+        
+        .lang-de { font-weight: 500; color: #2c3e50; }
+        .lang-ar { font-family: 'Cairo', sans-serif; direction: rtl; color: #555; line-height: 1.8; }
+
+        /* The 4 Areas Grid */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        @media (min-width: 600px) {
-            .options-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .option-btn {
-            background-color: var(--gray-light);
-            border: 2px solid var(--gray-border);
-            padding: 15px;
+        .area-card {
+            border: 1px solid var(--gray-border);
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.2s;
-            direction: rtl;
+            padding: 20px;
+            transition: transform 0.2s;
+            background: white;
+            position: relative;
+            overflow: hidden;
         }
-
-        .option-btn:hover:not([disabled]) {
-            border-color: var(--accent);
-            background-color: #eaf2f8;
+        
+        .area-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+        .area-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--accent);
         }
-
-        .option-btn.correct {
-            background-color: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-
-        .option-btn.wrong {
-            background-color: var(--error);
-            color: white;
-            border-color: var(--error);
-        }
-
-        .feedback-msg {
-            margin-top: 1.5rem;
-            min-height: 25px;
+        .area-num {
+            font-size: 2rem;
             font-weight: bold;
-            font-family: 'Cairo', sans-serif;
+            color: rgba(0,0,0,0.05);
+            position: absolute;
+            top: 10px; right: 15px;
+        }
+
+        .area-title { font-weight: bold; color: var(--primary-dark); font-size: 1.1rem; margin-bottom: 5px; }
+        .area-sub { font-size: 0.85rem; color: var(--accent); font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block;}
+
+        /* --- SECTION: TOOLS STYLES (Dictionary, etc) --- */
+        .search-box input {
+            width: 100%; padding: 15px; border: 2px solid var(--gray-border);
+            border-radius: 8px; font-size: 1.1rem; outline: none; transition: border-color 0.3s;
+        }
+        .search-box input:focus { border-color: var(--accent); }
+        
+        .table-wrapper { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); overflow-x: auto; margin-top: 20px;}
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; border-bottom: 1px solid var(--gray-border); text-align: left; }
+        th { background: var(--primary-dark); color: white; }
+        .td-ar { text-align: right; direction: rtl; font-family: 'Cairo', sans-serif; }
+        .abbr-tag { background: var(--accent); color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.9rem;}
+
+        /* Flashcards & Quiz specific styles */
+        .center-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; }
+        .card-scene { width: 100%; max-width: 500px; height: 280px; perspective: 1000px; cursor: pointer; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; box-shadow: var(--shadow); background: white; text-align: center; padding: 20px;}
+        .card-face.back { background: var(--accent); color: white; transform: rotateY(180deg); }
+        
+        .quiz-box { background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow); max-width: 600px; width: 100%; text-align: center; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .quiz-btn { padding: 15px; border: 2px solid var(--gray-border); background: white; border-radius: 8px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1rem; }
+        .quiz-btn:hover { background: #f0f0f0; }
+        .quiz-btn.correct { background: var(--success); color: white; border-color: var(--success); }
+        .quiz-btn.wrong { background: var(--error); color: white; border-color: var(--error); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .learning-container { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-bottom: 20px; }
         }
 
         /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--primary-dark);
-            color: #95a5a6;
-            margin-top: auto;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.85rem;
-        }
+        footer { text-align: center; padding: 2rem; color: #95a5a6; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Buchhaltungs-Abkürzungen</h1>
-    <p>تعلم مصطلحات المحاسبة الألمانية (Deutsch - Arabisch)</p>
+    <div>
+        <h1>Buchhaltung Pro</h1>
+    </div>
+    <span>المحاسبة الألمانية للمتحدثين بالعربية</span>
 </header>
 
 <nav>
-    <button class="nav-btn active" onclick="switchTab('dictionary')">القاموس / Wörterbuch</button>
+    <button class="nav-btn active" onclick="switchTab('learn')">الدروس / Lernen</button>
+    <button class="nav-btn" onclick="switchTab('dictionary')">القاموس / Wörterbuch</button>
     <button class="nav-btn" onclick="switchTab('flashcards')">البطاقات / Karteikarten</button>
     <button class="nav-btn" onclick="switchTab('quiz')">الاختبار / Quiz</button>
 </nav>
 
 <main>
-    <section id="dictionary" class="view-section active">
+    
+    <section id="learn" class="view-section active">
+        <div class="learning-container">
+            <aside class="sidebar">
+                <h3>الفهرس / Inhalt</h3>
+                <ul class="chapter-list">
+                    <li class="active" onclick="loadLesson(1)">1. Grundlagen der Buchführung</li>
+                    <li style="opacity: 0.5; cursor: not-allowed;">2. Bilanz (Demnächst / قريباً)</li>
+                    <li style="opacity: 0.5; cursor: not-allowed;">3. Buchungssätze (Demnächst)</li>
+                </ul>
+            </aside>
+
+            <article class="lesson-content">
+                <div class="lesson-header">
+                    <h2>1. Grundlagen der Buchführung</h2>
+                    <p class="subtitle">أساسيات مسك الدفاتر للمنشآت الصناعية والتجارية</p>
+                </div>
+
+                <div class="content-block">
+                    <h3>1. Einführung in das betriebliche Rechnungswesen</h3>
+                    <div class="definition-box">
+                        <div class="dual-lang">
+                            <div class="lang-de">
+                                <strong>Begriff:</strong> Das betriebliche Rechnungswesen ist ein System zur Ermittlung, Verarbeitung, Speicherung und Abgabe von Informationen über ausgewählte wirtschaftliche und rechtliche Vorgänge eines Betriebes für Zwecke der Planung, Steuerung und Kontrolle.
+                            </div>
+                            <div class="lang-ar">
+                                <strong>المفهوم:</strong> نظام المحاسبة في الشركات هو نظام لتحديد ومعالجة وتخزين وتقديم معلومات حول عمليات اقتصادية وقانونية مختارة للمنشأة لأغراض التخطيط والتوجيه والرقابة.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h3>Die 4 Teilbereiche (المجالات الأربعة)</h3>
+                    <p style="margin-bottom: 15px;">Nach dem Buchführungserlass (1937) gliedert sich das Rechnungswesen in:</p>
+                    
+                    <div class="areas-grid">
+                        
+                        <div class="area-card">
+                            <span class="area-num">1</span>
+                            <div class="area-title">Buchführung</div>
+                            <span class="area-sub">Zeitraumrechnung (حساب الفترة)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
+                                Erfasst Vermögens- und Kapitalbestände und deren Veränderung. Ermittlung des Erfolges (Gewinn/Verlust) eines Zeitraums.
+                            </div>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                تسجل الأصول ورأس المال وتغيراتها. تهدف لتحديد نتيجة الفترة (ربح أو خسارة). 
+                                <br><small>تأسست عام 1494 بواسطة لوكا باتشيولي.</small>
+                            </div>
+                        </div>
+
+                        <div class="area-card">
+                            <span class="area-num">2</span>
+                            <div class="area-title">Kalkulation</div>
+                            <span class="area-sub">Stückrechnung (حساب الوحدة)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
+                                Auch Kosten- und Leistungsrechnung (KLR). Ermittlung der Selbstkosten des Produktes.
+                            </div>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                تسمى أيضاً محاسبة التكاليف. تحسب تكلفة البضائع والخدمات لتحديد تكلفة المنتج الواحد (سعر التكلفة).
+                            </div>
+                        </div>
+
+                        <div class="area-card">
+                            <span class="area-num">3</span>
+                            <div class="area-title">Statistik</div>
+                            <span class="area-sub">Vergleichsrechnung (المقارنة)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
+                                Zahlenmäßige Erfassung von wiederkehrenden Vorgängen (Umsätze, Zahlungsströme). Basis: Buchführung.
+                            </div>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                تسجيل رقمي للعمليات المتكررة (المبيعات، التدفقات النقدية). تعتمد على بيانات المحاسبة للمقارنة.
+                            </div>
+                        </div>
+
+                        <div class="area-card">
+                            <span class="area-num">4</span>
+                            <div class="area-title">Planung</div>
+                            <span class="area-sub">Vorschaurechnung (التنبؤ)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
+                                Auf die Zukunft gerichtete Rechnung. Aufstellung von Sollzahlen für begrenzte Zeiträume.
+                            </div>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                حسابات موجهة نحو المستقبل. وضع أرقام مستهدفة (Soll) لفترات زمنية محددة أو مشاريع.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </section>
+
+    <section id="dictionary" class="view-section">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="بحث (مثال: AfA, Umsatzsteuer, ضريبة)...">
+            <input type="text" id="searchInput" placeholder="Suche nach Abkürzung oder Begriff (z.B. GuV, ضريبة)...">
         </div>
         <div class="table-wrapper">
             <table>
@@ -399,66 +379,57 @@
                         <th width="45%" style="text-align: right;">Arabisch</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    </tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
     </section>
 
     <section id="flashcards" class="view-section">
-        <div class="flashcard-area">
-            <div class="scene">
-                <div class="card" id="flashcard">
-                    <div class="card__face card__face--front">
-                        <h2 id="fc-abbr">AfA</h2>
-                        <span class="hint">انقر لقلب البطاقة / Klicken zum Drehen</span>
+        <div class="center-container">
+            <div class="card-scene">
+                <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="card-face front">
+                        <h2 id="fc-abbr" style="font-size: 4rem; color: var(--accent);">AfA</h2>
+                        <p style="color: #999; margin-top: 10px;">انقر للقلب / Klicken</p>
                     </div>
-                    <div class="card__face card__face--back">
-                        <div class="term-de" id="fc-de">Absetzung für Abnutzung</div>
-                        <div class="term-ar" id="fc-ar">الإهلاك</div>
+                    <div class="card-face back">
+                        <div id="fc-de" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">Absetzung für Abnutzung</div>
+                        <div id="fc-ar" class="ar-text" style="font-size: 1.5rem;">الإهلاك</div>
                     </div>
                 </div>
             </div>
-            
-            <div class="controls">
-                <button class="btn" onclick="prevCard()">السابق &#8594;</button>
-                <button class="btn" onclick="nextCard()">&#8592; التالي</button>
+            <div style="margin-top: 20px;">
+                <button class="nav-btn" style="background: var(--primary-dark); color: white;" onclick="prevCard()">السابق</button>
+                <button class="nav-btn" style="background: var(--primary-dark); color: white;" onclick="nextCard()">التالي</button>
             </div>
-            <p style="margin-top: 15px; color: #7f8c8d;" id="fc-counter">1 / 50</p>
         </div>
     </section>
 
     <section id="quiz" class="view-section">
-        <div class="quiz-wrapper">
-            <div class="score-board">
-                <span>النقاط: <span id="score">0</span></span>
-                <span>سؤال رقم: <span id="q-num">1</span></span>
-            </div>
-            
-            <div class="question">
-                <p style="font-family: 'Cairo', sans-serif;">ما معنى هذا الاختصار؟</p>
-                <h2 id="quiz-abbr">?</h2>
-            </div>
-            
-            <div class="options-grid" id="quiz-options">
+        <div class="center-container">
+            <div class="quiz-box">
+                <div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:20px;">
+                    <span>النقاط: <strong id="score">0</strong></span>
+                    <span>سؤال: <strong id="q-num">1</strong></span>
                 </div>
-            
-            <div class="feedback-msg" id="quiz-feedback"></div>
-            
-            <button class="btn" id="next-quiz-btn" style="display: none; margin: 15px auto;" onclick="nextQuestion()">السؤال التالي</button>
+                <p>Was bedeutet / ما معنى:</p>
+                <h2 id="quiz-abbr" style="font-size: 3rem; color: var(--accent); margin: 10px 0;">?</h2>
+                
+                <div class="options-grid" id="quiz-options"></div>
+                <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold; min-height: 25px;"></div>
+                <button id="next-quiz-btn" style="display:none; margin: 15px auto; padding: 10px 20px; background: var(--primary-dark); color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="nextQuestion()">Next Question</button>
+            </div>
         </div>
     </section>
+
 </main>
 
 <footer>
-    تم تطوير هذا التطبيق التعليمي بناءً على المصطلحات المقدمة. <br>
-    &copy; 2026 Accounting Learning Tool
+    &copy; 2026 Accounting Learning Tool | Buchhaltung Deutsch-Arabisch
 </footer>
 
 <script>
-    /**
-     * البيانات الكاملة حسب القائمة المقدمة
-     */
+    // --- DATA ---
     const data = [
         { abbr: "A", de: "Abschnitt", ar: "مقطع" },
         { abbr: "AB", de: "Anfangsbestand", ar: "رصيد أول المدة" },
@@ -471,278 +442,176 @@
         { abbr: "ANK", de: "Anschaffungsnebenkosten", ar: "تكاليف الشراء الجانبية" },
         { abbr: "AO", de: "Abgabenordnung", ar: "قانون الضرائب الألماني" },
         { abbr: "AR", de: "Ausgangsrechnung", ar: "فاتورة صادرة" },
-        { abbr: "AV", de: "Anlagevermögen/Arbeitslosenversicherung", ar: "الأصول الثابتة أو تأمين البطالة" },
-        { abbr: "B", de: "Berichtigungsschlüssel", ar: "مفتاح التصحيح" },
-        { abbr: "BA", de: "Bundesanzeiger/Betriebsausgaben", ar: "الجريدة الرسمية الاتحادية أو مصاريف تشغيلية" },
-        { abbr: "BdF", de: "Bundesminister der Finanzen", ar: "وزير المالية الاتحادي" },
-        { abbr: "BFH", de: "Bundesfinanzhof", ar: "محكمة المالية الاتحادية" },
-        { abbr: "BGA", de: "Betriebs- und Geschäftsausstattung", ar: "التجهيزات التشغيلية والمكتبية" },
-        { abbr: "BGB", de: "Bürgerliches Gesetzbuch", ar: "القانون المدني" },
-        { abbr: "BilMoG", de: "Bilanzrechtsmodernisierungsgesetz", ar: "قانون تحديث قانون الميزانية العمومية" },
+        { abbr: "AV", de: "Anlagevermögen", ar: "الأصول الثابتة" },
+        { abbr: "BGA", de: "Betriebs- und Geschäftsausstattung", ar: "تجهيزات تشغيلية ومكتبية" },
+        { abbr: "BilMoG", de: "Bilanzrechtsmodernisierungsgesetz", ar: "قانون تحديث المحاسبة" },
         { abbr: "BMF", de: "Bundesministerium der Finanzen", ar: "وزارة المالية الاتحادية" },
-        { abbr: "BpO", de: "Betriebsprüfungsordnung", ar: "نظام التفتيش الضريبي" },
-        { abbr: "BStBl", de: "Bundessteuerblatt", ar: "المجلة الضريبية الاتحادية" },
-        { abbr: "BuG", de: "Betriebs- und Geschäftsausstattung", ar: "التجهيزات التشغيلية والمكتبية" },
-        { abbr: "BV", de: "Betriebsvermögen", ar: "رأس مال المنشأة" },
+        { abbr: "BV", de: "Betriebsvermögen", ar: "أصول المنشأة" },
         { abbr: "BWA", de: "Betriebswirtschaftliche Auswertung", ar: "التقييم الاقتصادي للأعمال" },
-        { abbr: "DATEV", de: "Datenverarbeitungsorganisation des steuerberatenden Berufes", ar: "منظمة معالجة البيانات لمهنة الاستشارات الضريبية" },
-        { abbr: "DB", de: "Der Betrieb", ar: "المجلة المهنية 'التشغيل'" },
-        { abbr: "Eh.", de: "Einzelhandel", ar: "تجارة التجزئة" },
-        { abbr: "e.K.", de: "eingetragener Kaufmann", ar: "تاجر مسجل" },
         { abbr: "EK", de: "Eigenkapital", ar: "حقوق الملكية" },
         { abbr: "ER", de: "Eingangsrechnung", ar: "فاتورة واردة" },
         { abbr: "ESt", de: "Einkommensteuer", ar: "ضريبة الدخل" },
-        { abbr: "EStDV", de: "Einkommensteuer-Durchführungsverordnung", ar: "لائحة تنفيذ ضريبة الدخل" },
-        { abbr: "ESTH", de: "Amtliches Einkommensteuer-Handbuch", ar: "دليل ضريبة الدخل الرسمي" },
         { abbr: "EStG", de: "Einkommensteuergesetz", ar: "قانون ضريبة الدخل" },
-        { abbr: "ESTR", de: "Einkommensteuer-Richtlinien", ar: "المبادئ التوجيهية لضريبة الدخل" },
-        { abbr: "EU", de: "Europäische Union", ar: "الاتحاد الأوروبي" },
-        { abbr: "EUSt", de: "Einfuhrumsatzsteuer", ar: "ضريبة استيراد القيمة المضافة" },
-        { abbr: "EV", de: "Eigenverbrauch", ar: "الاستهلاك الشخصي" },
-        { abbr: "FA", de: "Finanzamt", ar: "مكتب الضرائب" },
-        { abbr: "FK", de: "Fremdkapital", ar: "رأس المال المقترض/الديون" },
+        { abbr: "FK", de: "Fremdkapital", ar: "رأس المال المقترض (الخصوم)" },
         { abbr: "GewSt", de: "Gewerbesteuer", ar: "ضريبة التجارة" },
-        { abbr: "GKR", de: "Gemeinschaftskontenrahmen der Industrie", ar: "مخطط الحسابات المشترك للصناعة" },
         { abbr: "GmbH", de: "Gesellschaft mit beschränkter Haftung", ar: "شركة ذات مسؤولية محدودة" },
         { abbr: "GoB", de: "Grundsätze ordnungsgemäßer Buchführung", ar: "مبادئ المحاسبة السليمة" },
-        { abbr: "GOBS", de: "Grundsätze ordnungsgemäßer DV-gestützter Buchführungssysteme", ar: "مبادئ أنظمة المحاسبة المحوسبة" },
-        { abbr: "GoS", de: "Grundsätze ordnungsgemäßer Speicherbuchführung", ar: "مبادئ محاسبة التخزين" },
-        { abbr: "GuVK", de: "Gewinn- und Verlustkonto", ar: "حساب الأرباح والخسائر" },
-        { abbr: "GuVR", de: "Gewinn- und Verlustrechnung", ar: "قائمة الأرباح والخسائر" },
-        { abbr: "GWG", de: "geringwertiges Wirtschaftsgut", ar: "أصول منخفضة القيمة" },
-        { abbr: "H", de: "Hinweise/Haben", ar: "ملاحظات أو 'له/دائن'" },
-        { abbr: "HAÜ", de: "Hauptabschlussübersicht", ar: "ملخص الإقفال الرئيسي" },
-        { abbr: "HB", de: "Handelsbilanz", ar: "الميزانية العمومية التجارية" },
+        { abbr: "GuV", de: "Gewinn- und Verlustrechnung", ar: "حساب الأرباح والخسائر" },
+        { abbr: "GWG", de: "Geringwertiges Wirtschaftsgut", ar: "أصل منخفض القيمة" },
+        { abbr: "H", de: "Haben", ar: "دائن (له)" },
+        { abbr: "HB", de: "Handelsbilanz", ar: "الميزانية التجارية" },
         { abbr: "HGB", de: "Handelsgesetzbuch", ar: "القانون التجاري" },
         { abbr: "HK", de: "Herstellungskosten", ar: "تكاليف التصنيع" },
-        { abbr: "HR", de: "Handelsregister", ar: "السجل التجاري" },
-        { abbr: "IDW", de: "Hauptausschuss des Instituts für Wirtschaftsprüfer", ar: "اللجنة الرئيسية لمعهد مدققي الحسابات" },
-        { abbr: "IKR", de: "Industriekontenrahmen", ar: "مخطط الحسابات الصناعي" },
-        { abbr: "INSO", de: "Insolvenzgeldumlage", ar: "رسوم إعانات الإعسار" },
-        { abbr: "K", de: "Kontokorrent", ar: "الحساب الجاري" },
-        { abbr: "KG", de: "Kommanditgesellschaft", ar: "شركة توصية بسيطة" },
-        { abbr: "KiSt", de: "Kirchensteuer", ar: "ضريبة الكنيسة" },
+        { abbr: "K", de: "Kontokorrent", ar: "حساب جاري" },
+        { abbr: "KG", de: "Kommanditgesellschaft", ar: "شركة توصية" },
         { abbr: "KSt", de: "Körperschaftsteuer", ar: "ضريبة الشركات" },
-        { abbr: "KV", de: "Krankenversicherung", ar: "التأمين الصحي" },
-        { abbr: "LFZG", de: "Lohnfortzahlungsgesetz", ar: "قانون استمرار دفع الأجور" },
         { abbr: "LSt", de: "Lohnsteuer", ar: "ضريبة الأجور" },
-        { abbr: "LStDV", de: "Lohnsteuer-Durchführungsverordnung", ar: "لائحة تنفيذ ضريبة الأجور" },
-        { abbr: "MwStSystR", de: "Mehrwertsteuer-Systemrichtlinie", ar: "التوجيه الموحد لنظام ضريبة القيمة المضافة" },
-        { abbr: "m.Z.", de: "mit Zinsschein", ar: "مع قسيمة فوائد" },
-        { abbr: "ND", de: "Nutzungsdauer", ar: "العمر الإنتاجي" },
-        { abbr: "OFD", de: "Oberfinanzdirektion", ar: "مديرية المالية العليا" },
-        { abbr: "OHG", de: "offene Handelsgesellschaft", ar: "شركة تضامن مفتوحة" },
-        { abbr: "o.Z.", de: "ohne Zinsschein", ar: "بدون قسيمة فوائد" },
-        { abbr: "PflegeVG", de: "Pflegeversicherungsgesetz", ar: "قانون تأمين الرعاية" },
-        { abbr: "PV", de: "Pflegeversicherung", ar: "تأمين الرعاية" },
-        { abbr: "PublG", de: "Publizitätsgesetz", ar: "قانون الإفصاح" },
-        { abbr: "R", de: "Richtlinie", ar: "مبدأ توجيهي" },
-        { abbr: "rkr.", de: "rechtskräftig", ar: "ملزم قانوناً" },
-        { abbr: "RV", de: "Rentenversicherung", ar: "تأمين التقاعد" },
-        { abbr: "Rz.", de: "Randziffer/Randzahl", ar: "رقم الهامش" },
-        { abbr: "S", de: "Soll", ar: "منه/مدين" },
-        { abbr: "SachbezV", de: "Sachbezugsverordnung", ar: "لائحة المزايا العينية" },
-        { abbr: "SB", de: "Schlussbestand", ar: "رصيد الإقفال" },
-        { abbr: "SBK", de: "Schlussbilanzkonto", ar: "حساب الميزانية العمومية الختامية" },
-        { abbr: "SKR", de: "Spezialkontenrahmen", ar: "مخطط حسابات متخصص" },
-        { abbr: "SL", de: "sonstige Leistung", ar: "خدمة أخرى" },
-        { abbr: "SoIZ", de: "Solidaritätszuschlag", ar: "ضريبة التضامن الإضافية" },
-        { abbr: "SoIZG", de: "Solidaritätszuschlagsgesetz", ar: "قانون ضريبة التضامن الإضافية" },
-        { abbr: "StB", de: "Steuerbilanz", ar: "الميزانية العمومية الضريبية" },
-        { abbr: "StBereinG", de: "Steuerbereinigungsgesetz", ar: "قانون التطهير الضريبي" },
-        { abbr: "StEntlG", de: "Steuerentlastungsgesetz", ar: "قانون الإعفاء الضريبي" },
-        { abbr: "StEuglG", de: "Steuer-Euroglättungsgesetz", ar: "قانون تعديل اليورو الضريبي" },
-        { abbr: "SV", de: "Saldovortrag", ar: "ترحيل الرصيد" },
-        { abbr: "SvEV", de: "Sozialversicherungsentgeltverordnung", ar: "لائحة أجور التأمينات الاجتماعية" },
-        { abbr: "Tz.", de: "Textziffer/Textzahl", ar: "رقم النص" },
-        { abbr: "U1", de: "Umlage 1", ar: "الرسوم 1" },
-        { abbr: "U2", de: "Umlage 2", ar: "الرسوم 2" },
+        { abbr: "OHG", de: "Offene Handelsgesellschaft", ar: "شركة تضامن" },
+        { abbr: "S", de: "Soll", ar: "مدين (منه)" },
+        { abbr: "SBK", de: "Schlussbilanzkonto", ar: "حساب الميزانية الختامية" },
+        { abbr: "SKR", de: "Spezialkontenrahmen", ar: "دليل الحسابات الخاص" },
         { abbr: "USt", de: "Umsatzsteuer", ar: "ضريبة المبيعات/القيمة المضافة" },
-        { abbr: "USTAE", de: "Umsatzsteuer-Anwendungserlass", ar: "مرسوم تطبيق ضريبة المبيعات" },
-        { abbr: "USEDV", de: "Umsatzsteuer-Durchführungsverordnung", ar: "لائحة تنفيذ ضريبة المبيعات" },
-        { abbr: "USt-IdNr.", de: "Umsatzsteuer-Identifikationsnummer", ar: "رقم تعريف ضريبة المبيعات" },
         { abbr: "UV", de: "Umlaufvermögen", ar: "الأصول المتداولة" },
-        { abbr: "vBP", de: "vereidigter Buchprüfer", ar: "مدقق حسابات محلف" },
-        { abbr: "VermBG", de: "Vermögensbildungsgesetz", ar: "قانون تكوين الأصول" },
-        { abbr: "VoSt", de: "Vorsteuer", ar: "ضريبة المدخلات" },
-        { abbr: "VSt", de: "Vermögensteuer", ar: "ضريبة الثروة" },
-        { abbr: "vwL", de: "vermögenswirksame Leistungen", ar: "المزايا المكونة للأصول" },
-        { abbr: "VZ", de: "Veranlagungszeitraum", ar: "فترة التقييم الضريبي" },
-        { abbr: "WG", de: "Wechselgesetz", ar: "قانون الكمبيالات" },
-        { abbr: "WoBauFG", de: "Wohnungsbauförderungsgesetz", ar: "قانون تشجيع بناء المساكن" },
-        { abbr: "WOPG", de: "Wohnungsbau-Prämiengesetz", ar: "قانون علاوة بناء المساكن" },
-        { abbr: "WP", de: "Wirtschaftsprüfer", ar: "مدقق حسابات" },
-        { abbr: "WStG", de: "Wechselsteuergesetz", ar: "قانون ضريبة الكمبيالات" },
-        { abbr: "ZM", de: "Zusammenfassende Meldung", ar: "تقرير ملخص" }
+        { abbr: "VoSt", de: "Vorsteuer", ar: "ضريبة المدخلات (المشتريات)" },
+        { abbr: "VZ", de: "Veranlagungszeitraum", ar: "الفترة الضريبية" },
+        { abbr: "WP", de: "Wirtschaftsprüfer", ar: "محاسب قانوني / مدقق" }
     ];
 
-    // --- State Variables ---
-    let currentTab = 'dictionary';
+    // --- LOGIC ---
     let currentCardIndex = 0;
     let quizScore = 0;
-    let quizQuestionCount = 1;
+    let questionCount = 1;
     let currentQuizItem = null;
 
-    // --- Init ---
-    document.addEventListener('DOMContentLoaded', () => {
+    // Initialization
+    window.onload = function() {
         renderTable(data);
         renderFlashcard();
-        generateQuizQuestion();
-    });
+        generateQuiz();
+    };
 
-    // --- Navigation Logic ---
-    function switchTab(tabName) {
-        // Toggle Sections
+    // Tab Switching
+    function switchTab(tabId) {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.getElementById(tabName).classList.add('active');
+        document.getElementById(tabId).classList.add('active');
         
-        // Toggle Buttons
-        const btns = document.querySelectorAll('.nav-btn');
-        btns.forEach(btn => btn.classList.remove('active'));
-        if(tabName === 'dictionary') btns[0].classList.add('active');
-        if(tabName === 'flashcards') btns[1].classList.add('active');
-        if(tabName === 'quiz') btns[2].classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        // Find button based on onclick attribute text matching tabId (simple hack)
+        const buttons = document.querySelectorAll('.nav-btn');
+        if(tabId === 'learn') buttons[0].classList.add('active');
+        if(tabId === 'dictionary') buttons[1].classList.add('active');
+        if(tabId === 'flashcards') buttons[2].classList.add('active');
+        if(tabId === 'quiz') buttons[3].classList.add('active');
     }
 
-    // --- Dictionary Logic ---
-    const tableBody = document.getElementById('tableBody');
-    const searchInput = document.getElementById('searchInput');
-
+    // Dictionary Logic
     function renderTable(items) {
-        tableBody.innerHTML = '';
-        if (items.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px;">لا توجد نتائج / Keine Ergebnisse</td></tr>`;
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        if(items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Keine Daten / لا توجد نتائج</td></tr>';
             return;
         }
         items.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><span class="abbr-tag">${item.abbr}</span></td>
-                <td>${item.de}</td>
-                <td class="td-ar">${item.ar}</td>
+            tbody.innerHTML += `
+                <tr>
+                    <td><span class="abbr-tag">${item.abbr}</span></td>
+                    <td class="de-text">${item.de}</td>
+                    <td class="td-ar">${item.ar}</td>
+                </tr>
             `;
-            tableBody.appendChild(row);
         });
     }
 
-    searchInput.addEventListener('input', (e) => {
-        const val = e.target.value.toLowerCase();
-        const filtered = data.filter(item => 
-            item.abbr.toLowerCase().includes(val) || 
-            item.de.toLowerCase().includes(val) || 
-            item.ar.includes(val)
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        const filtered = data.filter(i => 
+            i.abbr.toLowerCase().includes(term) || 
+            i.de.toLowerCase().includes(term) || 
+            i.ar.includes(term)
         );
         renderTable(filtered);
     });
 
-    // --- Flashcards Logic ---
-    const flashcard = document.getElementById('flashcard');
-    const fcAbbr = document.getElementById('fc-abbr');
-    const fcDe = document.getElementById('fc-de');
-    const fcAr = document.getElementById('fc-ar');
-    const fcCounter = document.getElementById('fc-counter');
-
-    flashcard.addEventListener('click', () => {
-        flashcard.classList.toggle('is-flipped');
-    });
-
+    // Flashcard Logic
     function renderFlashcard() {
-        flashcard.classList.remove('is-flipped');
+        const item = data[currentCardIndex];
+        const card = document.getElementById('flashcard');
+        card.classList.remove('flipped');
         
         setTimeout(() => {
-            const item = data[currentCardIndex];
-            fcAbbr.textContent = item.abbr;
-            fcDe.textContent = item.de;
-            fcAr.textContent = item.ar;
-            fcCounter.textContent = `${currentCardIndex + 1} / ${data.length}`;
+            document.getElementById('fc-abbr').textContent = item.abbr;
+            document.getElementById('fc-de').textContent = item.de;
+            document.getElementById('fc-ar').textContent = item.ar;
         }, 200);
     }
 
-    window.nextCard = function() {
+    window.nextCard = () => {
         currentCardIndex = (currentCardIndex + 1) % data.length;
         renderFlashcard();
-    }
-
-    window.prevCard = function() {
+    };
+    window.prevCard = () => {
         currentCardIndex = (currentCardIndex - 1 + data.length) % data.length;
         renderFlashcard();
-    }
+    };
 
-    // --- Quiz Logic ---
-    const quizAbbr = document.getElementById('quiz-abbr');
-    const quizOptions = document.getElementById('quiz-options');
-    const quizFeedback = document.getElementById('quiz-feedback');
-    const scoreEl = document.getElementById('score');
-    const qNumEl = document.getElementById('q-num');
-    const nextBtn = document.getElementById('next-quiz-btn');
-
-    window.generateQuizQuestion = function() {
-        quizFeedback.textContent = '';
+    // Quiz Logic
+    window.generateQuiz = () => {
+        const feedback = document.getElementById('quiz-feedback');
+        const nextBtn = document.getElementById('next-quiz-btn');
+        feedback.textContent = '';
         nextBtn.style.display = 'none';
-        
-        // Random Question
+
         const randIndex = Math.floor(Math.random() * data.length);
         currentQuizItem = data[randIndex];
-        
-        quizAbbr.textContent = currentQuizItem.abbr;
-        
-        // Generate Distractors
+        document.getElementById('quiz-abbr').textContent = currentQuizItem.abbr;
+
         let options = [currentQuizItem];
-        while (options.length < 4) {
-            const distractor = data[Math.floor(Math.random() * data.length)];
-            // Ensure uniqueness
-            if (!options.some(o => o.abbr === distractor.abbr)) {
-                options.push(distractor);
-            }
+        while(options.length < 4) {
+            let rand = data[Math.floor(Math.random() * data.length)];
+            if(!options.includes(rand)) options.push(rand);
         }
-        
-        // Shuffle
         options.sort(() => Math.random() - 0.5);
-        
-        // Render
-        quizOptions.innerHTML = '';
+
+        const grid = document.getElementById('quiz-options');
+        grid.innerHTML = '';
         options.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'option-btn';
+            btn.className = 'quiz-btn';
             btn.textContent = opt.ar;
             btn.onclick = () => checkAnswer(opt, btn);
-            quizOptions.appendChild(btn);
+            grid.appendChild(btn);
         });
-    }
+    };
 
     function checkAnswer(selected, btn) {
-        // Disable buttons
-        const allBtns = document.querySelectorAll('.option-btn');
+        const allBtns = document.querySelectorAll('.quiz-btn');
         allBtns.forEach(b => b.disabled = true);
-        
-        if (selected.abbr === currentQuizItem.abbr) {
-            // Correct
+        const feedback = document.getElementById('quiz-feedback');
+
+        if(selected.abbr === currentQuizItem.abbr) {
             btn.classList.add('correct');
-            quizFeedback.textContent = 'إجابة صحيحة! ممتاز';
-            quizFeedback.style.color = 'var(--success)';
+            feedback.textContent = 'Correct! / صحيح';
+            feedback.style.color = 'var(--success)';
             quizScore++;
-            scoreEl.textContent = quizScore;
+            document.getElementById('score').textContent = quizScore;
         } else {
-            // Wrong
             btn.classList.add('wrong');
-            quizFeedback.textContent = `خطأ. الإجابة الصحيحة هي: ${currentQuizItem.ar}`;
-            quizFeedback.style.color = 'var(--error)';
-            
-            // Highlight Correct
+            feedback.textContent = `Falsch. Richtig: ${currentQuizItem.ar}`;
+            feedback.style.color = 'var(--error)';
             allBtns.forEach(b => {
-                if (b.textContent === currentQuizItem.ar) b.classList.add('correct');
+                if(b.textContent === currentQuizItem.ar) b.classList.add('correct');
             });
         }
-        nextBtn.style.display = 'block';
+        document.getElementById('next-quiz-btn').style.display = 'block';
     }
 
-    window.nextQuestion = function() {
-        quizQuestionCount++;
-        qNumEl.textContent = quizQuestionCount;
-        generateQuizQuestion();
-    }
+    window.nextQuestion = () => {
+        questionCount++;
+        document.getElementById('q-num').textContent = questionCount;
+        generateQuiz();
+    };
 
 </script>
-
 </body>
 </html>
