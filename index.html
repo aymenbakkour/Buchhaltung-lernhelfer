@@ -156,12 +156,21 @@
         .lesson-header .subtitle { color: #7f8c8d; font-family: 'Cairo', sans-serif; }
 
         /* Typography within Lesson */
-        .content-block { margin-bottom: 2.5rem; }
-        .content-block h3 { color: var(--accent); margin-bottom: 1rem; border-left: 4px solid var(--accent); padding-left: 10px; }
+        .content-block { margin-bottom: 3.5rem; }
+        .content-block h3 { color: var(--accent); margin-bottom: 1rem; border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.4rem; }
+        .content-block h4 { color: var(--primary-light); margin: 15px 0 10px 0; font-size: 1.1rem; }
         
         .definition-box {
             background-color: #f8f9fa;
             border-left: 4px solid #f1c40f;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .info-box {
+            background-color: #e8f6f3;
+            border-left: 4px solid var(--success);
             padding: 15px;
             margin: 15px 0;
             border-radius: 4px;
@@ -180,7 +189,7 @@
         .lang-de { font-weight: 500; color: #2c3e50; }
         .lang-ar { font-family: 'Cairo', sans-serif; direction: rtl; color: #555; line-height: 1.8; }
 
-        /* The 4 Areas Grid */
+        /* Grids */
         .areas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -216,7 +225,31 @@
         .area-title { font-weight: bold; color: var(--primary-dark); font-size: 1.1rem; margin-bottom: 5px; }
         .area-sub { font-size: 0.85rem; color: var(--accent); font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block;}
 
-        /* --- SECTION: TOOLS STYLES (Dictionary, etc) --- */
+        /* Flow Chart Style */
+        .flow-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .flow-step {
+            background: var(--primary-dark);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* --- SECTION: TOOLS STYLES --- */
         .search-box input {
             width: 100%; padding: 15px; border: 2px solid var(--gray-border);
             border-radius: 8px; font-size: 1.1rem; outline: none; transition: border-color 0.3s;
@@ -230,7 +263,7 @@
         .td-ar { text-align: right; direction: rtl; font-family: 'Cairo', sans-serif; }
         .abbr-tag { background: var(--accent); color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.9rem;}
 
-        /* Flashcards & Quiz specific styles */
+        /* Flashcards & Quiz */
         .center-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; }
         .card-scene { width: 100%; max-width: 500px; height: 280px; perspective: 1000px; cursor: pointer; }
         .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
@@ -278,9 +311,9 @@
             <aside class="sidebar">
                 <h3>الفهرس / Inhalt</h3>
                 <ul class="chapter-list">
-                    <li class="active" onclick="loadLesson(1)">1. Grundlagen der Buchführung</li>
+                    <li class="active" onclick="scrollToId('lesson-1-1')">1.1 Einführung & Begriffe</li>
+                    <li class="active" onclick="scrollToId('lesson-1-2')">1.2 Aufgaben (المهام)</li>
                     <li style="opacity: 0.5; cursor: not-allowed;">2. Bilanz (Demnächst / قريباً)</li>
-                    <li style="opacity: 0.5; cursor: not-allowed;">3. Buchungssätze (Demnächst)</li>
                 </ul>
             </aside>
 
@@ -290,75 +323,150 @@
                     <p class="subtitle">أساسيات مسك الدفاتر للمنشآت الصناعية والتجارية</p>
                 </div>
 
-                <div class="content-block">
-                    <h3>1. Einführung in das betriebliche Rechnungswesen</h3>
+                <div id="lesson-1-1" class="content-block">
+                    <h3>1.1 Einführung in das betriebliche Rechnungswesen</h3>
                     <div class="definition-box">
                         <div class="dual-lang">
                             <div class="lang-de">
-                                <strong>Begriff:</strong> Das betriebliche Rechnungswesen ist ein System zur Ermittlung, Verarbeitung, Speicherung und Abgabe von Informationen über ausgewählte wirtschaftliche und rechtliche Vorgänge eines Betriebes für Zwecke der Planung, Steuerung und Kontrolle.
+                                <strong>Begriff:</strong> Das betriebliche Rechnungswesen ist ein System zur Ermittlung, Verarbeitung, Speicherung und Abgabe von Informationen über ausgewählte wirtschaftliche und rechtliche Vorgänge eines Betriebes.
                             </div>
                             <div class="lang-ar">
-                                <strong>المفهوم:</strong> نظام المحاسبة في الشركات هو نظام لتحديد ومعالجة وتخزين وتقديم معلومات حول عمليات اقتصادية وقانونية مختارة للمنشأة لأغراض التخطيط والتوجيه والرقابة.
+                                <strong>المفهوم:</strong> نظام المحاسبة في الشركات هو نظام لتحديد ومعالجة وتخزين وتقديم معلومات حول عمليات اقتصادية وقانونية مختارة للمنشأة.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Die 4 Teilbereiche (المجالات الأربعة)</h4>
+                    <div class="areas-grid">
+                        <div class="area-card">
+                            <span class="area-num">1</span>
+                            <div class="area-title">Buchführung</div>
+                            <span class="area-sub">Zeitraumrechnung</span>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                حساب الفترة: تحديد الربح والخسارة.
+                            </div>
+                        </div>
+                        <div class="area-card">
+                            <span class="area-num">2</span>
+                            <div class="area-title">Kalkulation</div>
+                            <span class="area-sub">Stückrechnung</span>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                حساب التكاليف: تحديد تكلفة المنتج الواحد.
+                            </div>
+                        </div>
+                        <div class="area-card">
+                            <span class="area-num">3</span>
+                            <div class="area-title">Statistik</div>
+                            <span class="area-sub">Vergleichsrechnung</span>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                الإحصاء: مقارنة الأرقام الحالية والسابقة.
+                            </div>
+                        </div>
+                        <div class="area-card">
+                            <span class="area-num">4</span>
+                            <div class="area-title">Planung</div>
+                            <span class="area-sub">Vorschaurechnung</span>
+                            <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
+                                التخطيط: التنبؤ بالمستقبل (Sollzahlen).
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="content-block">
-                    <h3>Die 4 Teilbereiche (المجالات الأربعة)</h3>
-                    <p style="margin-bottom: 15px;">Nach dem Buchführungserlass (1937) gliedert sich das Rechnungswesen in:</p>
-                    
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
+
+                <div id="lesson-1-2" class="content-block">
+                    <h3>1.2 Aufgaben des betrieblichen Rechnungswesens</h3>
+                    <p class="subtitle" style="margin-bottom: 20px;">مهام المحاسبة في الشركات</p>
+
+                    <h4>أ. المهام الأربعة الرئيسية (Die 4 Aufgaben)</h4>
                     <div class="areas-grid">
-                        
                         <div class="area-card">
                             <span class="area-num">1</span>
-                            <div class="area-title">Buchführung</div>
-                            <span class="area-sub">Zeitraumrechnung (حساب الفترة)</span>
-                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
-                                Erfasst Vermögens- und Kapitalbestände und deren Veränderung. Ermittlung des Erfolges (Gewinn/Verlust) eines Zeitraums.
+                            <div class="area-title">Entscheidungsvorbereitung</div>
+                            <span class="area-sub">Dokumentation (التوثيق)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 5px;">
+                                Ermittlung von Prognoseinformationen zur Unterstützung der Planung.
                             </div>
                             <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
-                                تسجل الأصول ورأس المال وتغيراتها. تهدف لتحديد نتيجة الفترة (ربح أو خسارة). 
-                                <br><small>تأسست عام 1494 بواسطة لوكا باتشيولي.</small>
+                                توفير معلومات مستقبلية لدعم التخطيط واتخاذ القرارات.
                             </div>
                         </div>
 
                         <div class="area-card">
                             <span class="area-num">2</span>
-                            <div class="area-title">Kalkulation</div>
-                            <span class="area-sub">Stückrechnung (حساب الوحدة)</span>
-                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
-                                Auch Kosten- und Leistungsrechnung (KLR). Ermittlung der Selbstkosten des Produktes.
+                            <div class="area-title">Rechenschaftslegung</div>
+                            <span class="area-sub">Dokumentation (المساءلة والتوثيق)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 5px;">
+                                Ermittlung von Vergangenheitsinformationen.
                             </div>
                             <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
-                                تسمى أيضاً محاسبة التكاليف. تحسب تكلفة البضائع والخدمات لتحديد تكلفة المنتج الواحد (سعر التكلفة).
+                                تحديد معلومات الماضي لغرض التوثيق والمساءلة القانونية.
                             </div>
                         </div>
 
                         <div class="area-card">
                             <span class="area-num">3</span>
-                            <div class="area-title">Statistik</div>
-                            <span class="area-sub">Vergleichsrechnung (المقارنة)</span>
-                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
-                                Zahlenmäßige Erfassung von wiederkehrenden Vorgängen (Umsätze, Zahlungsströme). Basis: Buchführung.
+                            <div class="area-title">Überwachung</div>
+                            <span class="area-sub">Kontrolle (الرقابة)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 5px;">
+                                Ermittlung von <strong>Soll-Ist-Abweichungen</strong>.
                             </div>
                             <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
-                                تسجيل رقمي للعمليات المتكررة (المبيعات، التدفقات النقدية). تعتمد على بيانات المحاسبة للمقارنة.
+                                تحديد الانحرافات بين المستهدف (Soll) والفعلي (Ist) للرقابة.
                             </div>
                         </div>
 
                         <div class="area-card">
                             <span class="area-num">4</span>
-                            <div class="area-title">Planung</div>
-                            <span class="area-sub">Vorschaurechnung (التنبؤ)</span>
-                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 8px;">
-                                Auf die Zukunft gerichtete Rechnung. Aufstellung von Sollzahlen für begrenzte Zeiträume.
+                            <div class="area-title">Steuerung</div>
+                            <span class="area-sub">Lenkung (التوجيه)</span>
+                            <div class="lang-de" style="font-size: 0.9rem; margin-bottom: 5px;">
+                                Steuerung fremden Verhaltens in Richtung auf betriebszielerfüllende Handlungsweisen.
                             </div>
                             <div class="lang-ar" style="font-size: 0.9rem; color: #666; border-top: 1px dashed #ccc; padding-top: 5px;">
-                                حسابات موجهة نحو المستقبل. وضع أرقام مستهدفة (Soll) لفترات زمنية محددة أو مشاريع.
+                                توجيه سلوك الآخرين لتحقيق أهداف الشركة.
                             </div>
                         </div>
+                    </div>
 
+                    <h4 style="margin-top: 30px;">ب. أهمية المعلومات (داخلياً وخارجياً)</h4>
+                    <div class="info-box">
+                        <div class="dual-lang">
+                            <div class="lang-de">
+                                <strong>Interne Funktion (Unternehmensführung):</strong><br>
+                                Dient als <em>Entscheidungsgrundlage</em> (z.B. für Investitionen) und als <em>Frühwarnsystem</em> beim Abweichen von vorgegebenen Werten.
+                            </div>
+                            <div class="lang-ar">
+                                <strong>الوظيفة الداخلية (للإدارة):</strong><br>
+                                تعمل كأساس لاتخاذ القرارات (مثل الاستثمارات) وكـ <em>نظام إنذار مبكر</em> عند الانحراف عن القيم المحددة مسبقاً.
+                            </div>
+                        </div>
+                        <div class="dual-lang" style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
+                            <div class="lang-de">
+                                <strong>Externe Funktion (Außenwelt):</strong><br>
+                                1. <em>Publizitätspflicht:</em> Große Kapitalgesellschaften (z.B. AG) müssen Bilanz & GuV im Bundesanzeiger veröffentlichen (§ 325 HGB).<br>
+                                2. <em>Besteuerung:</em> Finanzamt prüft Steuern basierend auf Umsatz und Gewinn.
+                            </div>
+                            <div class="lang-ar">
+                                <strong>الوظيفة الخارجية (للعالم الخارجي):</strong><br>
+                                1. <em>واجب النشر:</em> الشركات الكبرى (مثل AG) ملزمة بنشر الميزانية في الجريدة الرسمية.<br>
+                                2. <em>الضرائب:</em> مكتب الضرائب يفحص الالتزام الضريبي بناءً على الأرباح والمبيعات.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 30px;">ج. النظام الديناميكي (Das dynamische System)</h4>
+                    <p>كيفية تدفق المعلومات في المحاسبة / Wie Informationen fließen:</p>
+                    
+                    <div class="flow-container">
+                        <div class="flow-step">1. Erfassung (الجمع) <br><small>z.B. Belege</small></div>
+                        <div class="flow-arrow">&#8594;</div>
+                        <div class="flow-step">2. Speicherung (الحفظ) <br><small>z.B. Kontierung</small></div>
+                        <div class="flow-arrow">&#8594;</div>
+                        <div class="flow-step">3. Verarbeitung (المعالجة) <br><small>z.B. Buchung</small></div>
+                        <div class="flow-arrow">&#8594;</div>
+                        <div class="flow-step">4. Abgabe (التقديم) <br><small>z.B. Bilanz</small></div>
                     </div>
                 </div>
 
@@ -496,12 +604,19 @@
         document.getElementById(tabId).classList.add('active');
         
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        // Find button based on onclick attribute text matching tabId (simple hack)
         const buttons = document.querySelectorAll('.nav-btn');
         if(tabId === 'learn') buttons[0].classList.add('active');
         if(tabId === 'dictionary') buttons[1].classList.add('active');
         if(tabId === 'flashcards') buttons[2].classList.add('active');
         if(tabId === 'quiz') buttons[3].classList.add('active');
+    }
+
+    // Scroll to section in lesson
+    function scrollToId(id) {
+        const element = document.getElementById(id);
+        if(element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     // Dictionary Logic
